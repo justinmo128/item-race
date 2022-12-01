@@ -21,6 +21,7 @@ let rect1keys = ["a", "s", "w", "d"];
 let rect1move = [false, false, false, false];
 let rect2keys = ["ArrowLeft", "ArrowDown", "ArrowUp", "ArrowRight"];
 let rect2move = [false, false, false, false];
+let p1Move = true;
 
 // Draw Function
 window.addEventListener("load", draw);
@@ -35,13 +36,13 @@ function draw() {
     ctx.fillStyle = "green";
     ctx.fillRect(rect2.x, rect2.y, rect2.w, rect2.h);
 
-    moveRect();
+    moveRect1();
+    moveRect2();
 
     requestAnimationFrame(draw);
 }
 
-function moveRect() {
-    // Rect1
+function moveRect1() {
     // Movement
     if (rect1move[0]) {
         rect1.x -= 3
@@ -66,8 +67,9 @@ function moveRect() {
     } else if (rect1.y > cnv.height) {
         rect1.y = 0 - rect1.h
     }
+}
 
-    // Rect2
+function moveRect2() {
     // Movement
     if (rect2move[0]) {
         rect2.x -= 3
@@ -98,12 +100,22 @@ function moveRect() {
 // Key down handler
 window.addEventListener("keydown", (e) => {
     let keyPressed = e.key;
+    if (keyPressed === "Space") {
+        p1Move = !p1Move;
+        for (let i = 0; i < 4; i++) {
+            if (p1Move) {
+                rect2move[i] = false;
+            } else {
+                rect1move[i] = false;
+            }
+        }
+    }
         
     for (let i = 0; i < 4; i++) {
-        if (keyPressed === rect1keys[i]) {
+        if (keyPressed === rect1keys[i] && p1Move) {
             rect1move[i] = true;
         }
-        if (keyPressed === rect2keys[i]) {
+        if (keyPressed === rect2keys[i] && !p1Move) {
             rect2move[i] = true;
         }
     }
