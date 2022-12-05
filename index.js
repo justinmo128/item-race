@@ -49,6 +49,7 @@ function draw() {
     ctx.fillRect(0, 0, cnv.width, cnv.height)
     
     drawItems();
+    detectCollison();
     if (p1Move) {
         drawP2();
         drawP1();
@@ -90,6 +91,27 @@ function drawP2() {
     }
 }
 
+function detectCollison() {
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].x + 5 >= rect1.x &&
+            items[i].x + 5 <= rect1.x + rect1.w &&
+            items[i].y + 5 >= rect1.y &&
+            items[i].y + 5 <= rect1.y + rect1.h &&
+            items[i].collected === false) {
+                items[i].collected = true;
+                p1Points++
+        }
+        if (items[i].x + 5 >= rect2.x &&
+            items[i].x + 5 <= rect2.x + rect2.w &&
+            items[i].y + 5 >= rect2.y &&
+            items[i].y + 5 <= rect2.y + rect2.h &&
+            items[i].collected === false) {
+                items[i].collected = true;
+                p2Points++
+        }
+    }
+}
+
 function moveRect1() {
     // Movement
     if (rect1move[0]) {
@@ -114,17 +136,6 @@ function moveRect1() {
         rect1.y = cnv.height
     } else if (rect1.y > cnv.height) {
         rect1.y = 0 - rect1.h
-    }
-    // Collect points
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].x + 10 >= rect1.x &&
-            items[i].x <= rect1.x + rect1.w &&
-            items[i].y + 10 >= rect1.y &&
-            items[i].y <= rect1.y + rect1.h &&
-            items[i].collected === false) {
-                items[i].collected = true;
-                p1Points++
-        }
     }
 }
 
@@ -152,16 +163,5 @@ function moveRect2() {
         rect2.y = cnv.height
     } else if (rect2.y > cnv.height) {
         rect2.y = 0 - rect2.h
-    }
-    // Collect points
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].x + 10 >= rect2.x &&
-            items[i].x <= rect2.x + rect2.w &&
-            items[i].y + 10 >= rect2.y &&
-            items[i].y <= rect2.y + rect2.h &&
-            items[i].collected === false) {
-                items[i].collected = true;
-                p2Points++
-        }
     }
 }
