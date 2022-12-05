@@ -40,7 +40,6 @@ for (let i = 0; i < 15; i++) {
         items[j * 15 + i] = new Item(x, y)
     }
 }
-console.log(items)
 
 // Draw Function
 window.addEventListener("load", draw);
