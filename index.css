@@ -3,34 +3,28 @@
 body {
     text-align: center;
     background: #1F1F1F url("bg.png") fixed;
+    margin: auto;
     margin-top: 50px;
     font-family: Roboto;
     color: white;
+    width: 800px;
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .card {
-    width: 640px;
-    margin: 20px auto;
+    margin: 10px auto;
     background: #25232A;
     border-radius: 10px;
     box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.5);
-    padding: 40px;
-}
-
-.inputs {
-    display: flex;
-    justify-content: center;
-}
-
-.inputs > div {
-    width: 100%;
+    padding: 20px;
+    text-align: center;
 }
 
 canvas {
     background: rgb(0, 0, 0);
     border-radius: 5px;
-}
-
-input {
-    width: 100px;
 }

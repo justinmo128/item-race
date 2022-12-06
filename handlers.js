@@ -1,6 +1,9 @@
 // Key down handler
 window.addEventListener("keydown", (e) => {
     let keyPressed = e.key;
+    if (gameState === "start" && keyPressed === "Enter") {
+        gameState = "gameLoop";
+    }
     if (keyPressed === " ") {
         p1Move = !p1Move;
     }

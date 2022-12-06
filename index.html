@@ -6,11 +6,21 @@
         <script defer src="handlers.js"></script>
     </head>
     <body>
-        <h1>Item Race</h1>
-        <p>Blue - WASD, Green - Arrow Keys</p>
-        <p>Press space to select who moves</p>
+        <div class="top-container">
+            <div class="card">
+                <canvas id="p1score-canvas"></canvas>
+            </div>
+            <div>
+                <h1>Item Race</h1>
+                <p>Blue - WASD, Green - Arrow Keys</p>
+                <p>Press space to switch who moves</p>
+            </div>
+            <div class="card">
+                <canvas id="p2score-canvas"></canvas>
+            </div>
+        </div>
         <div class="card">
-            <canvas id="boundaries-canvas"></canvas>
+            <canvas id="itemrace-canvas"></canvas>
         </div>
     </body>
 </html>
