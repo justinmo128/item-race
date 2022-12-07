@@ -36,9 +36,12 @@ let rect2move = [false, false, false, false];
 let p1Move = !!Math.round(Math.random());
 let items = [];
 let score = [-1, -1];
-let p1Points = -1;
-let p2Points = -1;
 let gameState = "start";
+let columns = 14;
+let rows = 9;
+let lastanim = 0;
+let rect1intervalRunning = [false, false, false, false];
+let rect2intervalRunning = [false, false, false, false];
 class Item {
     constructor(x, y) {
         this.x = x;
@@ -47,11 +50,11 @@ class Item {
     }
 }
 
-for (let i = 0; i < 15; i++) {
-    for (let j = 0; j < 9; j++) {
+for (let i = 0; i < columns; i++) {
+    for (let j = 0; j < rows; j++) {
         let x = 20 + i * 45;
         let y = 21 + j * 54;
-        items[j * 15 + i] = new Item(x, y)
+        items[j * columns + i] = new Item(x, y);
     }
 }
 
@@ -83,21 +86,24 @@ function draw() {
             drawP2();
             moveRect2();
         }
-        // if (score[0] + score[1] >= 124) {
-        //     endGame();
-        // }
+        if (score[0] + score[1] >= 124) {
+            gameState = "end";
+            setTimeout(reset, 3000)
+        }
     } else if (gameState === "end") {
+        drawP1();
+        drawP2();
         drawEnd();
     }
 
-    setTimeout(draw, 1000/60);
+    setTimeout(requestAnimationFrame(draw), 1000/60);
 }
 
 function drawItems() {
     ctx.fillStyle = "yellow";
     for (let i = 0; i < items.length; i++) {
         if (items[i].collected === false) {
-            ctx.fillRect(items[i].x, items[i].y, 10, 10)
+            ctx.fillRect(items[i].x, items[i].y, 10, 10);
         }
     }
 }
@@ -155,60 +161,55 @@ function drawP2() {
 function moveRect1() {
     // Movement
     if (rect1move[0]) {
-        rect1.x -= 3
+        rect1.x -= 3;
     }
     if (rect1move[1]) {
-        rect1.y += 3
+        rect1.y += 3;
     }
     if (rect1move[2]) {
-        rect1.y -= 3
+        rect1.y -= 3;
     }
     if (rect1move[3]) {
-        rect1.x += 3
+        rect1.x += 3;
     }
     // Boundaries
     if (rect1.x + rect1.w < 0) {
-        rect1.x = cnv.width
+        rect1.x = cnv.width;
     } else if (rect1.x > cnv.width) {
-        rect1.x = 0 - rect1.w
+        rect1.x = 0 - rect1.w;
     }
     if (rect1.y + rect1.h < 0) {
-        rect1.y = cnv.height
+        rect1.y = cnv.height;
     } else if (rect1.y > cnv.height) {
-        rect1.y = 0 - rect1.h
+        rect1.y = 0 - rect1.h;
     }
 }
 
 function moveRect2() {
     // Movement
     if (rect2move[0]) {
-        rect2.x -= 3
+        rect2.x -= 3;
     }
     if (rect2move[1]) {
-        rect2.y += 3
+        rect2.y += 3;
     }
     if (rect2move[2]) {
-        rect2.y -= 3
+        rect2.y -= 3;
     }
     if (rect2move[3]) {
-        rect2.x += 3
+        rect2.x += 3;
     }
     // Boundaries
     if (rect2.x + rect2.w < 0) {
-        rect2.x = cnv.width
+        rect2.x = cnv.width;
     } else if (rect2.x > cnv.width) {
-        rect2.x = 0 - rect2.w
+        rect2.x = 0 - rect2.w;
     }
     if (rect2.y + rect2.h < 0) {
-        rect2.y = cnv.height
+        rect2.y = cnv.height;
     } else if (rect2.y > cnv.height) {
-        rect2.y = 0 - rect2.h
+        rect2.y = 0 - rect2.h;
     }
-}
-
-function endGame() {
-    gameState === "end";
-    setTimeout(reset, 3000)
 }
 
 function drawEnd() {
@@ -216,11 +217,11 @@ function drawEnd() {
     ctx.textAlign = "center";
     ctx.font = "70px Roboto";
     if (score[0] > score[1]) {
-        ctx.fillText("Blue wins!", 320, 400)
+        ctx.fillText("Blue wins!", 320, 400);
     } else if (score[0] < score[1]) {
-        ctx.fillText("Green wins!", 320, 400)
+        ctx.fillText("Green wins!", 320, 400);
     } else {
-        ctx.fillText("Draw!", 320, 400)
+        ctx.fillText("Draw!", 320, 400);
     }
 }
 
@@ -230,13 +231,13 @@ function reset() {
         y: 215,
         w: 50,
         h: 50
-    }
+    };
     rect2 = {
         x: 320,
         y: 215,
         w: 50,
         h: 50
-    }
+    };
     p1Move = !!Math.round(Math.random());
     score[0] = -1;
     score[1] = -1;
