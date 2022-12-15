@@ -80,13 +80,11 @@ function draw() {
         if (p1Move) {
             drawP2();
             drawP1();
-            moveRect1();
         } else {
             drawP1();
             drawP2();
-            moveRect2();
         }
-        if (score[0] + score[1] >= 124) {
+        if (score[0] > 62 && score[1] < 41 || score[1] > 62 && score[0] < 41 || score[0] + score[1] >= 124) {
             gameState = "end";
             setTimeout(reset, 3000)
         }
@@ -96,7 +94,19 @@ function draw() {
         drawEnd();
     }
 
-    setTimeout(requestAnimationFrame(draw), 1000/60);
+    setTimeout(draw, 1);
+}
+
+window.addEventListener("load", logic);
+function logic() {
+    if (gameState === "gameLoop") {
+        if (p1Move) {
+            moveRect1();
+        } else {
+            moveRect2();
+        }
+    }
+    setTimeout(logic, 1000/75)
 }
 
 function drawItems() {
